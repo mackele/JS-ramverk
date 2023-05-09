@@ -1,33 +1,15 @@
 import React, { useState } from "react";
 import Movie from "./Movie";
+import SaveMoviesButton from "./SaveMoviesButton";
+import OrderByAlphaButton from "./OrderByAlphaButton";
+import OrderByGradeButton from "./OrderByGradeButton.js";
 
 export default function AddMovieForm() {
     const [movies, setMovies] = useState([]);
 
-    //Funktion för att lägga till en film
-    const addMovie = (event) => {
-        event.preventDefault();
-
-        const newId = Date.now();
-        const title = event.target.elements["movie-title"].value;
-        const grade = event.target.elements["movie-grade"].value;
-        let validation = true; 
-
-        if(title === "" || grade === "0") {
-            validation = false;
-            alert("Vänligen ange både titel och betyg");
-            return;
-        }
-        
-        if(validation) {
-            setMovies([...movies, {
-                id: newId,
-                title: title,
-                grade: grade
-            }]);
-            event.target.reset()
-        }
-    }
+    const addMovie = (movie) => {
+        setMovies([...movies, movie]);
+    };
 
     //Funktion för att ta bort film
     function deleteMovie(id) {
@@ -36,7 +18,7 @@ export default function AddMovieForm() {
 
     return (
         <div>
-            <form onSubmit={addMovie}>
+            <form>
                 <label htmlFor="movie-title">Titel: </label>
                 <input type="text" id="movie-title" className="form-control" placeholder="Ange filmens namn..."></input>
 
@@ -50,12 +32,15 @@ export default function AddMovieForm() {
                     <option value="5">5</option>
                 </select>
 
-                <input type="submit" className="btn btn-success mt-3" value="Spara film"/>
+                <SaveMoviesButton addMovie={addMovie} />
             </form>
 
             <ul className="list-group">
                 { movies.map(movie => <Movie key={movie.id} item={movie} deleteMovie={deleteMovie} />)}
             </ul>
+
+            <OrderByAlphaButton movies={movies} setMovies={setMovies} />
+            <OrderByGradeButton movies={movies} setMovies={setMovies} />
         </div>
     )
 }
