@@ -8,7 +8,7 @@ export default function OrderByAlphaButton(props) {
         //Skapar en kopia som sedan sorteras, jämför titel a med b och sorterar den därefter
         const sortedMovies = [...props.movies].sort((a, b) => a.title.localeCompare(b.title));
         console.log(sortedMovies);
-        //Uppdaterar den originella listan med kopian
+        //Uppdaterar den originella listan med kopian av listan
         props.setMovies(sortedMovies);
     }
 
