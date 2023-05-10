@@ -10,7 +10,9 @@ function addStarsAccordingToRating(rating) {
     return stars
 }
 
+//Komponent för varje enskild film
 export default function Movie(props) {
+    //Skapar ett list element där titel, knapp för att ta bort och stjärnor skapas och som sedan används i Movies.js
     return (
         <li className="list-group-item" data-movie-name= {props.item.title} data-movie-grade={props.item.grade}>
             {props.item.title}
